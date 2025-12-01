@@ -13,20 +13,9 @@ type CartState = {
   items: CartItem[];
 };
 
-// Load cart from localStorage
-const loadCart = (): CartItem[] => {
-  if (typeof window === "undefined") return [];
-  try {
-    const saved = localStorage.getItem("cart");
-    return saved ? JSON.parse(saved) : [];
-  } catch {
-    return [];
-  }
-};
-
 // initial state
 const initialState: CartState = {
-  items: loadCart(),
+  items: [],
 };
 
 const cartSlice = createSlice({
@@ -57,8 +46,12 @@ const cartSlice = createSlice({
         localStorage.setItem("cart", JSON.stringify(state.items));
       }
     },
+
+    setItems: (state, action: PayloadAction<CartItem[]>) => {
+      state.items = action.payload;
+    },
   },
 });
 
-export const { addToCart, decrease } = cartSlice.actions;
+export const { addToCart, decrease, setItems } = cartSlice.actions;
 export default cartSlice.reducer;
