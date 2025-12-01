@@ -1,6 +1,7 @@
 import "./globals.css";
 import QueryProvider from "./providers/QueryProvider";
 import { estedad } from "../../public/fonts/estedad";
+import Providers from "@/lib/store/Providers";
 
 export default function RootLayout({
   children,
@@ -10,7 +11,9 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl" className={estedad.variable}>
       <body>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <Providers>{children}</Providers>
+        </QueryProvider>
       </body>
     </html>
   );
