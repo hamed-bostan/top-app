@@ -8,6 +8,7 @@ export const ProductSchema = z.object({
   price: z.number().positive(),
   thumbnail: z.string().url(),
   discountPercentage: z.number().min(0).max(100),
+  images: z.array(z.string().url()),
 });
 
 export type Product = z.infer<typeof ProductSchema>;

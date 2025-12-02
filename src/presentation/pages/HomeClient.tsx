@@ -78,7 +78,7 @@ export default function HomeClient() {
         <div ref={observerRef} className="h-10" /> {/* Invisible trigger for observer */}
       </div>
       <footer
-        className={`p-4 bg-[#c23e78] text-white rounded-xl flex items-center font-bold sticky bottom-6 max-w-[500px] mx-auto transition-all duration-200 ease-in-out ${
+        className={`p-4 bg-[#c23e78] text-white rounded-xl flex items-center font-bold sticky z-50 bottom-6 max-w-[500px] mx-auto transition-all duration-200 ease-in-out ${
           totalQty > 0 ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
         }`}
       >

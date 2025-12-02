@@ -9,6 +9,8 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import toFaNumber from "@/lib/utils/toFaNumber";
 import { type Product } from "@/domain/entities/product.schema";
 import { calculateFinalPrice } from "@/application/helpers/calculateFinalPrice";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 interface ProductCardProps {
   product: Product;
@@ -20,15 +22,33 @@ export function ProductCard({ product }: ProductCardProps) {
   const finalPrice = calculateFinalPrice(product);
   const cartItem = items.find((i) => i.id === product.id);
   const qty = cartItem?.qty || 0;
+
   return (
     <article
       key={product.id}
       className="relative grid grid-cols-4 p-4 bg-[#241b20] border border-[rgba(0,0,0,0.25)] rounded-2xl shadow-[0_-1px_4px_rgba(0,0,0,0.1),0_4px_4px_rgba(0,0,0,0.15)]"
     >
       <figure className="relative h-28 w-28 col-span-1">
-        <Image fill src={product.thumbnail} alt={product.title} className="object-cover rounded-lg" />
+        {product.images.length > 1 ? (
+          <Swiper spaceBetween={0} slidesPerView={1} loop={true} className="h-28">
+            {product.images.map((img, index) => (
+              <SwiperSlide key={index} className="relative h-28">
+                <Image
+                  fill
+                  src={img}
+                  alt={`${product.title} image ${index + 1}`}
+                  className="object-cover rounded-lg"
+                  sizes="7rem"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <Image fill src={product.thumbnail} alt={product.title} className="object-cover rounded-lg" sizes="7rem" />
+        )}
+
         <div
-          className={`text-white absolute bottom-0 right-1.5 translate-y-[50%] flex items-center justify-between rounded-lg px-1 min-h-10 bg-[#c23e78] transition-all duration-200 ease-in-out ${
+          className={`text-white absolute z-40 bottom-0 right-1.5 translate-y-[50%] flex items-center justify-between rounded-lg px-1 min-h-10 bg-[#c23e78] transition-all duration-200 ease-in-out ${
             qty > 0 ? "left-1.5" : "left-[68px]"
           }`}
         >
