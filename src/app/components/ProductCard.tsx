@@ -6,8 +6,8 @@ import { RootState } from "@/lib/store/store";
 import { decrease, addToCart } from "@/lib/store/cartSlice";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { Product } from "../services/products";
 import toFaNumber from "@/lib/utils/toFaNumber";
+import { type Product } from "@/domain/entities/schemas";
 
 interface ProductCardProps {
   product: Product;
@@ -16,13 +16,11 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.cart.items);
-
   const finalPrice = product.discountPercentage
     ? Math.round(product.price * (1 - product.discountPercentage / 100))
     : product.price;
   const cartItem = items.find((i) => i.id === product.id);
   const qty = cartItem?.qty || 0;
-
   return (
     <article
       key={product.id}
@@ -65,14 +63,12 @@ export function ProductCard({ product }: ProductCardProps) {
           </button>
         </div>
       </figure>
-
       {product.discountPercentage && (
         <aside className="absolute top-0 left-4 bg-[#FF0000] text-white rounded-b-sm flex flex-col items-center min-w-9 gap-1">
           <p className="text-sm font-medium">{toFaNumber(product.discountPercentage)}</p>
           <p className="text-xs font-light">تخفیف</p>
         </aside>
       )}
-
       <section className="col-span-3 mr-1">
         <div className="flex flex-col gap-4 mb-3">
           <h2 className="text-white font-bold">{product.title}</h2>

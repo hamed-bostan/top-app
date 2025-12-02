@@ -1,13 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export type CartItem = {
-  id: number;
-  title: string;
-  price: number;
-  finalPrice: number;
-  thumbnail: string;
-  qty: number;
-};
+import { type CartItem } from "@/domain/entities/schemas";
 
 type CartState = {
   items: CartItem[];
@@ -29,24 +21,20 @@ const cartSlice = createSlice({
       } else {
         state.items.push(action.payload);
       }
-
       if (typeof window !== "undefined") {
         localStorage.setItem("cart", JSON.stringify(state.items));
       }
     },
-
     decrease: (state, action: PayloadAction<number>) => {
       const item = state.items.find((i) => i.id === action.payload);
       if (item) {
         if (item.qty > 1) item.qty -= 1;
         else state.items = state.items.filter((i) => i.id !== action.payload);
       }
-
       if (typeof window !== "undefined") {
         localStorage.setItem("cart", JSON.stringify(state.items));
       }
     },
-
     setItems: (state, action: PayloadAction<CartItem[]>) => {
       state.items = action.payload;
     },
