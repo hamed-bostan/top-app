@@ -76,7 +76,11 @@ export default function Home() {
           Array.from({ length: 3 }).map((_, index) => <SkeletonProduct key={`skeleton-next-${index}`} />)}
         <div ref={observerRef} className="h-10" /> {/* Invisible trigger for observer */}
       </div>
-      <footer className="p-4 bg-[#c23e78] text-white rounded-xl flex items-center font-bold sticky bottom-6 max-w-[500px] mx-auto">
+      <footer
+        className={`p-4 bg-[#c23e78] text-white rounded-xl flex items-center font-bold sticky bottom-6 max-w-[500px] mx-auto transition-all duration-200 ease-in-out ${
+          totalQty > 0 ? "translate-y-0 opacity-100" : "translate-y-20 opacity-55"
+        }`}
+      >
         <span className="text-sm w-6 h-6 bg-[#241b20] rounded-full flex justify-center items-center">{totalQty}</span>
         <p className="text-xs mr-1">مشاهده سبد خرید</p>
         <p className="mr-auto text-base">{totalPrice} تومان</p>

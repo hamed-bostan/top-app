@@ -7,6 +7,7 @@ import { decrease, addToCart } from "@/lib/store/cartSlice";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Product } from "../services/products";
+import toFaNumber from "@/lib/utils/toFaNumber";
 
 interface ProductCardProps {
   product: Product;
@@ -52,7 +53,7 @@ export function ProductCard({ product }: ProductCardProps) {
           >
             <AddIcon className="flex mx-auto" />
           </button>
-          <p className={`font-light ${qty > 0 ? "opacity-100" : "hidden opacity-0"}`}>{qty}</p>
+          <p className={`font-light ${qty > 0 ? "opacity-100" : "hidden opacity-0"}`}>{toFaNumber(qty)}</p>
           <button
             aria-label="Decrease quantity"
             onClick={() => dispatch(decrease(product.id))}
@@ -66,8 +67,8 @@ export function ProductCard({ product }: ProductCardProps) {
       </figure>
 
       {product.discountPercentage && (
-        <aside className="absolute top-0 left-4 bg-[#FF0000] text-white rounded-b-sm flex flex-col items-center min-w-8 gap-1">
-          <p className="text-base font-bold">{product.discountPercentage}%</p>
+        <aside className="absolute top-0 left-4 bg-[#FF0000] text-white rounded-b-sm flex flex-col items-center min-w-9 gap-1">
+          <p className="text-sm font-medium">{toFaNumber(product.discountPercentage)}</p>
           <p className="text-xs font-light">تخفیف</p>
         </aside>
       )}
@@ -78,17 +79,17 @@ export function ProductCard({ product }: ProductCardProps) {
           <p className="text-[#afafb9] mr-auto font-semibold">{product.title}</p>
           <p className="text-[#afafb9] text-xs text-justify">{product.description}</p>
         </div>
-        <footer className="col-span-full flex flex-col items-end">
+        <div className="col-span-full flex flex-col items-end">
           {product.discountPercentage && (
             <p className="text-[#afafb9] line-through flex justify-end text-sm mb-0.5 font-light">
-              {product.price}&nbsp;تومان
+              {toFaNumber(product.price)}&nbsp;تومان
             </p>
           )}
           <div className="flex justify-end gap-1 items-center">
-            <p className="text-white font-medium">{finalPrice}</p>
+            <p className="text-white font-medium">{toFaNumber(finalPrice)}</p>
             <p className="text-[#afafb9] font-light">تومان</p>
           </div>
-        </footer>
+        </div>
       </section>
     </article>
   );
