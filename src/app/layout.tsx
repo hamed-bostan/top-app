@@ -1,7 +1,7 @@
 import "./globals.css";
-import QueryProvider from "./providers/QueryProvider";
+import QueryProvider from "./_providers/QueryProvider";
 import { estedad } from "../../public/fonts/estedad";
-import Providers from "@/lib/store/Providers";
+import Providers from "@/store/Providers";
 
 export default function RootLayout({
   children,

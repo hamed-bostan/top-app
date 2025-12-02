@@ -1,13 +1,13 @@
 "use client";
 
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/lib/store/store";
-import { setItems } from "@/lib/store/cartSlice";
+import { RootState } from "@/store/store";
+import { setItems } from "@/store/cartSlice";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
-import { SkeletonProduct } from "./components/SkeletonProduct";
-import { ProductCard } from "./components/ProductCard";
-import { getProducts } from "@/infrastructure/repositories/ProductRepository";
+import { SkeletonProduct } from "@/presentation/components/SkeletonProduct";
+import { getProducts } from "@/infrastructure/repositories/product.repository";
+import { ProductCard } from "@/presentation/components/ProductCard";
 
 export default function HomeClient() {
   const dispatch = useDispatch();

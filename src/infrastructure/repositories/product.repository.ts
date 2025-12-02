@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ProductsResponseSchema, type ProductsResponse } from "@/domain/entities/schemas";
+import { ProductsResponseSchema, type ProductsResponse } from "@/domain/entities/product.schema";
 
 // Memoize the function for server-side caching (using React's cache)
 import { cache } from "react";

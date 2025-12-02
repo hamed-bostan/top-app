@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/lib/store/store";
-import { decrease, addToCart } from "@/lib/store/cartSlice";
+import { RootState } from "@/store/store";
+import { decrease, addToCart } from "@/store/cartSlice";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import toFaNumber from "@/lib/utils/toFaNumber";
-import { type Product } from "@/domain/entities/schemas";
+import { type Product } from "@/domain/entities/product.schema";
+import { calculateFinalPrice } from "@/application/helpers/calculateFinalPrice";
 
 interface ProductCardProps {
   product: Product;
@@ -16,9 +17,7 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.cart.items);
-  const finalPrice = product.discountPercentage
-    ? Math.round(product.price * (1 - product.discountPercentage / 100))
-    : product.price;
+  const finalPrice = calculateFinalPrice(product);
   const cartItem = items.find((i) => i.id === product.id);
   const qty = cartItem?.qty || 0;
   return (
